@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from sqlmodel import SQLModel
-from models import Tables, Reservations
+from db.models import Tables, Reservations
 
 target_metadata = SQLModel.metadata
 

@@ -1,0 +1,10 @@
+version: '3.8
+services:
+  app:
+    container_name: comp
+    build: ./
+    depends_on:
+      - db
+    command: bash -c 'while !<'
+    db:
+      container_name: dbcont

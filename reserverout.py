@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session, select
-from models import Tables, Reservations, get_session, ReservationCreate
+from db.models import Tables, Reservations, get_session, ReservationCreate
 router = APIRouter()
 
 # добавить бронь 
