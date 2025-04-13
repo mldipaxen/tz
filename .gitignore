@@ -1,6 +1,5 @@
 tabres.db
-venv
 __pycache__
-alembic
+alembic/
 alembic.ini
-.venv
+.venv/ 
