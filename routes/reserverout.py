@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session, select
 from db.models import Tables, Reservations, get_session, ReservationCreate
-from datetime import timedelta
-
+import datetime
+import pytz
+utc = pytz.utc
 router = APIRouter()
 
 # добавить бронь 
@@ -15,19 +16,20 @@ def create_reservation(reservation_data: ReservationCreate, session: Session = D
         raise HTTPException(status_code=404, detail="Стол не найден")
 
     new_start = reservation_data.reservation_time
-    new_end = new_start + timedelta(minutes=reservation_data.duration_minutes)
+    new_end = new_start + datetime.timedelta(minutes=reservation_data.duration_minutes)
 
-    # Проверка на перекрытие с другими бронями
-    overlapping_reservation = session.exec(
+    overlapping = session.exec(
         select(Reservations).where(
             Reservations.tables_id == reservation_data.tables_id,
-            Reservations.reservation_time < new_end,  # старт существующей < конец новой
-            (Reservations.reservation_time + timedelta(minutes=Reservations.duration_minutes)) > new_start  # конец существующей > старт новой
+            Reservations.reservation_time < new_end,
         )
-    ).first()
+    ).all()
 
-    if overlapping_reservation:
-        raise HTTPException(status_code=400, detail="На это время столик уже забронирован")
+    for res in overlapping:
+        existing_start = utc.localize(res.reservation_time)
+        existing_end = existing_start + datetime.timedelta(minutes=res.duration_minutes)
+        if existing_end > new_start:
+            raise HTTPException(status_code=400, detail="На это время столик уже забронирован")
 
     new_reservation = Reservations(**reservation_data.dict())
     session.add(new_reservation)

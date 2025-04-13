@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from reserverout import router as resrouter
-from tableroute import router as tablerouter
+from routes.reserverout import router as resrouter
+from routes.tableroute import router as tablerouter
 
 
 app = FastAPI()
