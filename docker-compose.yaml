@@ -1,9 +1,29 @@
 version: '3.8'
+
 services:
   app:
-    image: app-image
     build:
-      context: ./routes
+      context: ./tz
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=sqlite:///tabres.db
+
   db:
-    image: db-image
-    build: ./db
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  alembic:
+    build:
+      context: .
+      dockerfile: alembic.Dockerfile
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=sqlite:///tabres.db
