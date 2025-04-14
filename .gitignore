@@ -2,3 +2,4 @@ tabres.db
 __pycache__
 .venv/ 
 var.env
+venv/

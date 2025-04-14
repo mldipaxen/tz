@@ -2,3 +2,6 @@ fastapi
 alembic
 sqlmodel
 uvicorn
+pytest
+httpx
+pytz

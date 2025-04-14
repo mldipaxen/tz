@@ -27,10 +27,4 @@ class ReservationCreate(BaseModel):
 
 
 
-# with Session(engine) as session:
-#     table1 = Table(id = 1, name = 'Table 1', seats = 4, location='Стол у окна')
-#     table2 = Table(id = 2, name = 'Table 2', seats = 3, location='Стол в центре зала')
-#     table3 = Table(id = 3, name = 'Table 3', seats = 2, location='Стол у входа')
-#     table4 = Table(id = 4, name = 'Table 4', seats = 1, location='Стол на веранде')
-#     session.add_all([table1, table2, table3, table4])
-#     session.commit()
+
