@@ -2,7 +2,6 @@ from sqlmodel import  SQLModel, create_engine, Session, Field
 from datetime import datetime
 from pydantic import BaseModel
 
-engine = create_engine('sqlite:///tabres.db')
 
 
 class Tables (SQLModel, table=True):
@@ -25,9 +24,6 @@ class ReservationCreate(BaseModel):
     duration_minutes: int
 
 
-def get_session():
-    with Session(engine) as session:
-        yield session
 
 
 

@@ -1,10 +1,9 @@
-version: '3.8
+version: '3.8'
 services:
   app:
-    container_name: comp
-    build: ./
-    depends_on:
-      - db
-    command: bash -c 'while !<'
-    db:
-      container_name: dbcont
+    image: app-image
+    build:
+      context: ./routes
+  db:
+    image: db-image
+    build: ./db

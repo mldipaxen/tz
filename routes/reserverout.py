@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import Session, select
-from db.models import Tables, Reservations, get_session, ReservationCreate
+from db.models import Tables, Reservations, ReservationCreate
 import datetime
 import pytz
+from db.session import get_session
 utc = pytz.utc
 router = APIRouter()
 
