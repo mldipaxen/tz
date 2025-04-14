@@ -1,6 +1,6 @@
 FROM python:3.11.10
 
-WORKDIR /tz
+WORKDIR /routes
 
 COPY . .
 RUN pip install -r requirements.txt
