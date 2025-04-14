@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -8,14 +6,13 @@ services:
       - "8888:8080"
     depends_on:
       - db
+    env_file:
+      - var.env
     environment:
-      - DATABASE_URL=sqlite:///tabres.db
+      - DATABASE_URL=${DATABASE_URL}
 
   db:
     image: postgres:15
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
     ports:
       - "5444:5432"
 
@@ -25,5 +22,7 @@ services:
       dockerfile: alembic.Dockerfile
     depends_on:
       - db
+    env_file:
+      - var.env
     environment:
-      - DATABASE_URL=sqlite:///tabres.db
+      - DATABASE_URL=${DATABASE_URL}
